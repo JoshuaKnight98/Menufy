@@ -7,15 +7,20 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.menufy.R;
+import com.example.menufy.fragments.AlertFragment;
+import com.example.menufy.fragments.InformationFragment;
+import com.example.menufy.fragments.MailFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +48,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                boolean createFragment = false;
+                Fragment fragment = null;
+                switch (item.getItemId()){
+                    case R.id.menu_mail:
+                        fragment = new MailFragment();
+                        createFragment = true;
+                        break;
+
+                    case R.id.menu_alert:
+                        fragment = new AlertFragment();
+                        createFragment = true;
+                        break;
+
+                    case R.id.menu_info:
+                        fragment = new InformationFragment();
+                        createFragment = true;
+                        break;
+
+                }
+
+                if(createFragment){
+                    changeFragment(fragment,item);
+                    drawerLayout.closeDrawers();
+                }
+                return true;
+            }
+        });
+
     }
 
     private void setElements(){
@@ -67,5 +103,14 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void changeFragment(Fragment fragment, MenuItem item){
+        getSupportFragmentManager()
+                .beginTransaction().
+                replace(R.id.content_frame, fragment)
+                .commit();
+        item.setChecked(true);
+        getSupportActionBar().setTitle(item.getTitle());
     }
 }
