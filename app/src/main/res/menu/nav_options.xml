@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_mail"
+            android:title="Mail"
+            android:icon="@drawable/ic_baseline_mail_24"/>
+
+        <item
+            android:id="@+id/menu_info"
+            android:title="Information"
+            android:icon="@drawable/ic_baseline_info_24"/>
+
+        <item
+            android:id="@+id/menu_alert"
+            android:title="Alerts"
+            android:icon="@drawable/ic_baseline_announcement_24" />
+
+    </group>
+
+    <group
+        android:checkableBehavior="none">
+        <menu>
+            <item
+                android:id="@+id/switcher"
+                android:title="Option"
+                android:checkable="false"
+                app:actionLayout="@layout/switcher"/>
+        </menu>
+
+    </group>
+</menu>
